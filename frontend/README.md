@@ -18,11 +18,10 @@ Campus Eats is a React web application, designed for discovering restaurants and
 ## Features
 
 - **Restaurant Search**: Search by name, cuisine, or location.
-- **Interactive Map**: Visualize restaurant locations via Mapbox or Google Maps.
 - **Details & Photos**: View hours, address, menu highlights, and image gallery.
 - **Reviews & Ratings**: Submit and read star-rated reviews.
-- **Filters & Sorting**: Filter by cuisine, price range, rating, or open-now status.
-- **Responsive UI**: Mobile-first design optimized for all screen sizes.
+- **Filters & Sorting**: Filter by cuisine, price range, rating.
+- **Responsive UI**: Design optimized for all screen sizes.
 
 ---
 
@@ -45,7 +44,6 @@ Campus Eats is a React web application, designed for discovering restaurants and
 
 - **Node.js** ≥ 16.x
 - **npm** ≥ 8.x or **Yarn**
-- Map API key (Mapbox or Google)
 
 ---
 
@@ -62,7 +60,7 @@ Campus Eats is a React web application, designed for discovering restaurants and
    # or
    yarn
    ```
-3. **Set up environment** (see [Configuration](#configuration))
+3. **Set up environment**
 
 4. **Run in development**
    ```bash
@@ -84,7 +82,7 @@ Campus Eats is a React web application, designed for discovering restaurants and
 
 ## Contact
 
-Developed by **Troy Powers** – [twpowers@iastate.edu]
-Developed by **Tanish Visanagiri** – [tanishv@iastate.edu]
+- Developed by **Troy Powers** – [twpowers@iastate.edu]
+- Developed by **Tanish Visanagiri** – [tanishv@iastate.edu]
 
-Repository: (https://git.las.iastate.edu/se-coms-3190/spring-2025/final-project/MN_2.git)
+- Repository: (https://git.las.iastate.edu/se-coms-3190/spring-2025/final-project/MN_2.git)
