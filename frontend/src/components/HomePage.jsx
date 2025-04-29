@@ -1,5 +1,5 @@
 import React from "react";
-import NewestAdded from "./NewestAdded";
+import Categoiry from "./Category";
 
 const HomePage = () => {
     return (
@@ -11,7 +11,9 @@ const HomePage = () => {
                 </div>
             </div>
             <div>
-                <NewestAdded />
+                <Categoiry title={"Newest Added"} />
+                <Categoiry title={"Top Rated"} />
+                <Categoiry title={"Local Favorites"} />
             </div>
         </div>
     )
