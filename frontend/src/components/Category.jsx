@@ -1,21 +1,24 @@
 import React from "react";
 import RestaurantCard from "./RestaurantCard";
 
-
 const Category = ({ title, data }) => {
     return (
-        <div className="container mx-auto px-4 mt-8">
+        <div className="mb-12">
             <div className="flex justify-between items-center pb-4 border-b border-gray-200">
-                <h1 className="text-2xl font-bold">{title}</h1>
-                <button className="border-blue-500 border py-2 px-3 rounded text-blue-500 hover:bg-blue-50">View All</button>
+                <h2 className="text-2xl font-bold">{title}</h2>
+                <button className="text-blue-600 hover:text-blue-800 text-sm font-medium">View All</button>
             </div>
 
-            <div className="grid grid-cols-4 gap-6 mt-6">
-                <RestaurantCard />
+            <div className="grid grid-cols-3 gap-6 mt-6">
+                {data && data.map((restaurant, index) => (
+                    <RestaurantCard
+                        key={index}
+                        restaurant={restaurant}
+                    />
+                ))}
             </div>
         </div>
-    )
-}
-
+    );
+};
 
 export default Category;
