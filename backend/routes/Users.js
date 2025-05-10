@@ -13,7 +13,6 @@ router.post("/addPropUser", async (req, res) => {
         await user.save();
 
         res.json({ message: "added users", user });
-        console.log(req);
     } catch (error) {
         console.error('Error saving/fetching users:', error);
         res.status(500).json({ error: 'Failed to save/fetch users' });
