@@ -1,16 +1,11 @@
-const { MongoClient } = require('mongodb');
+const mongoose = require('mongoose');
 
-const uri = 'mongodb://localhost:27017';
-const dbName = 'CampusEats';
-
-const client = new MongoClient(uri);
-
+const uri = 'mongodb://localhost:27017/CampusEats';
 async function connectToDatabase() {
     try {
-        await client.connect();
-        console.log('Connected successfully to MongoDB server');
+        await mongoose.connect(uri);
 
-        return client.db(dbName);
+        console.log('Connected successfully to MongoDB server');
     } catch (error) {
         console.error('Error connecting to database:', error);
         throw error;
@@ -18,12 +13,12 @@ async function connectToDatabase() {
 }
 
 function closeConnection() {
-    client.close();
+    mongoose.connection.close();
     console.log('MongoDB connection closed');
 }
 
 module.exports = {
     connectToDatabase,
     closeConnection,
-    client
+    mongoose
 };
