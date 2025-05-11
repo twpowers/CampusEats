@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import restaurantData from "../assets/data-with-dates.json";
+// import restaurantData from "../assets/data-with-dates.json";
 import RestaurantCard from "./RestaurantCard";
 import { Link } from "react-router-dom";
 import { PlusIcon } from "@heroicons/react/24/outline";
@@ -9,9 +9,35 @@ const CategoriesPage = ({ newRestaurant }) => {
     const [sortOption, setSortOption] = useState("");
     const [displayedRestaurants, setDisplayedRestaurants] = useState([]);
     const [filteredCategory, setFilteredCategory] = useState("all");
-    const [allRestaurants, setAllRestaurants] = useState([...restaurantData.Restaurant]);
+    const [allRestaurants, setAllRestaurants] = useState([]);
 
     const lastAddedRef = useRef(null);
+
+    const fetchAllRestaurants = async () => {
+        try {
+            const response = await fetch("http://localhost:3000/restaurants");
+
+            if (!response.ok) {
+                throw Error(`Http error Status: ${response.status}`)
+            }
+
+            const restaurants = await response.json();
+
+            console.log("restaurants", restaurants);
+            return restaurants;
+        } catch (e) {
+            console.error("Error fetching restaurants:", e);
+            return [];
+        }
+    }
+
+    useEffect(() => {
+        const loadRestaurants = async () => {
+            const data = await fetchAllRestaurants();
+            setAllRestaurants(data);
+        };
+        loadRestaurants();
+    }, []);
 
     useEffect(() => {
         if (newRestaurant) {
@@ -48,14 +74,14 @@ const CategoriesPage = ({ newRestaurant }) => {
 
         if (filteredCategory !== "all") {
             filtered = filtered.filter(
-                (restaurant) => restaurant.category.toLowerCase() === filteredCategory
+                (restaurant) => restaurant.category && restaurant.category.toLowerCase() === filteredCategory
             );
         }
 
         if (searchInput.trim() !== "") {
             const searchTerm = searchInput.toLowerCase();
             filtered = filtered.filter((restaurant) =>
-                restaurant.RestaurantName.toLowerCase().includes(searchTerm)
+                restaurant.RestaurantName && restaurant.RestaurantName.toLowerCase().includes(searchTerm)
             );
         }
 
@@ -65,11 +91,17 @@ const CategoriesPage = ({ newRestaurant }) => {
                 let valueA, valueB;
 
                 if (property === "name") {
-                    valueA = a.RestaurantName.toLowerCase();
-                    valueB = b.RestaurantName.toLowerCase();
+                    valueA = a.RestaurantName ? a.RestaurantName.toLowerCase() : '';
+                    valueB = b.RestaurantName ? b.RestaurantName.toLowerCase() : '';
                 } else if (property === "price") {
-                    valueA = parseInt(a.price_Range.match(/\$(\d+)/)[1]);
-                    valueB = parseInt(b.price_Range.match(/\$(\d+)/)[1]);
+                    try {
+                        valueA = a.price_Range ? parseInt(a.price_Range.match(/\$(\d+)/)?.[1] || 0) : 0;
+                        valueB = b.price_Range ? parseInt(b.price_Range.match(/\$(\d+)/)?.[1] || 0) : 0;
+                    } catch (e) {
+                        console.error("Error parsing price:", e);
+                        valueA = 0;
+                        valueB = 0;
+                    }
                 }
 
                 if (direction === "ascending") {
@@ -91,7 +123,7 @@ const CategoriesPage = ({ newRestaurant }) => {
     };
 
     return (
-        <div>
+        <div className="bg-white">
             <div className="bg-gray-100 w-full py-10">
                 <div className="container mx-auto px-4">
                     <h1 className="text-4xl text-center font-bold mb-2" id="page-title">
