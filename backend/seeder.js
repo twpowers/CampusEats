@@ -9,7 +9,10 @@ const importData = async () => {
         await Restruant.deleteMany({})
         console.log("Deleated restruant data");
 
-        await Restruant.insertMany(restruntData);
+        for (const resturant of restruntData) {
+            const newRestrauunt = new Restruant(resturant);
+            await newRestrauunt.save()
+        }
         console.log("Added restrturant data");
         process.exit()
     } catch (e) {

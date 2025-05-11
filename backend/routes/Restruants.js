@@ -1,4 +1,4 @@
-const express = require("express");
+const express = require("express")
 const router = express.Router();
 const Restaurant = require("../models/Restruant");
 
@@ -22,6 +22,50 @@ router.post("/addRestraunt", async (req, res) => {
     } catch (error) {
         console.error('Error saving restaurant:', error);
         res.status(500).json({ error: 'Failed to save restaurant', details: error.message });
+    }
+});
+
+router.put("/addMenuItem/:id", async (req, res) => {
+    try {
+        const id = parseInt(req.params.id);
+        const { item, description, price } = req.body;
+
+        if (!item || !description || !price) {
+            return res.status(404).json({
+                error: "Missing fields",
+                message: "item, description, or price fields are missing"
+            })
+        }
+
+        const restaurant = await Restaurant.findOne({ restaurantId: id });
+
+        if (!restaurant) {
+            return res.status(400).json({
+                message: `Restaurant with id: ${id} could not be found`,
+            })
+        }
+
+        const menuItem = {
+            item,
+            description,
+            price
+        }
+
+        restaurant.menu.push(menuItem)
+
+        const updatedRestaurant = await restaurant.save();
+
+        console.log(`Restaurant has been updated: ${updatedRestaurant}`);
+        return res.status(200).json({
+            message: "Restaurant has been updated",
+            restaurant: updatedRestaurant
+        })
+    } catch (e) {
+        console.error(`Error updating restaurant: ${e}`);
+        res.status(500).json({
+            error: "Failed to update restaurant",
+            details: e.message
+        })
     }
 });
 

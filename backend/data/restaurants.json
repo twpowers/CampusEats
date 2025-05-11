@@ -90,5 +90,51 @@
       }
     ],
     "dateAdded": "2023-06-05T16:20:00.000Z"
+  },
+  {
+    "RestaurantName": "Hickory Park",
+    "category": "BBQ",
+    "rating": 4.5,
+    "image": "/src/assets/images/hickory-park.jpg",
+    "bio": "Local favorite serving barbecue, ice cream, and American comfort food in a family-friendly atmosphere.",
+    "location": "1404 S Duff Ave, Ames, IA 50010",
+    "Hours": "11:00 AM – 9:00 PM",
+    "price_Range": "$10 – $25",
+    "menu": [
+      {
+        "item": "Hickory's Big Beef Sandwich",
+        "description": "Thinly sliced beef brisket piled high on a toasted bun, served with BBQ sauce and your choice of side",
+        "price": "$12.99"
+      },
+      {
+        "item": "Famous Sampler Platter",
+        "description": "A combination of ribs, beef brisket, and pulled pork with two sides and cornbread",
+        "price": "$18.99"
+      }
+    ],
+    "dateAdded": "2023-01-15T12:30:00.000Z"
+  },
+  {
+    "RestaurantName": "Jeff's Pizza Shop",
+    "category": "Pizza",
+    "rating": 4.3,
+    "image": "/src/assets/images/jeffs-pizza.jpg",
+    "bio": "Local pizzeria offering hand-tossed pizzas, calzones, and subs with late-night delivery options.",
+    "location": "2402 Lincoln Way, Ames, IA 50014",
+    "Hours": "11:00 AM – 2:00 AM",
+    "price_Range": "$7 – $20",
+    "menu": [
+      {
+        "item": "The Cyclone",
+        "description": "House special pizza with pepperoni, sausage, beef, mushrooms, onions, and green peppers",
+        "price": "$14.99"
+      },
+      {
+        "item": "Buffalo Chicken Pizza",
+        "description": "Spicy buffalo sauce base with grilled chicken, mozzarella, and blue cheese crumbles",
+        "price": "$13.99"
+      }
+    ],
+    "dateAdded": "2023-02-10T11:15:00.000Z"
   }
 ] 
