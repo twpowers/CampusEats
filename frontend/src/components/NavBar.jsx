@@ -1,7 +1,7 @@
 import React from 'react'
 import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
-import { Link, useLocation } from 'react-router-dom'
+import { Link, Navigate, replace, useLocation, useNavigate } from 'react-router-dom'
 
 const navigation = [
     { name: 'Top Restaurants', href: '/', current: true },
@@ -17,15 +17,18 @@ function classNames(...classes) {
 
 export default function NavBar({ user, setUser }) {
     const location = useLocation();
+    const navigate = useNavigate();
     const currentPath = location.pathname;
 
     const updatedNavigation = navigation.map(item => ({
         ...item,
         current: item.href === currentPath
     }));
-    
+
     const handleLogout = () => {
         setUser(null);
+        localStorage.removeItem('user')
+        navigate("/login")
     };
 
     return (

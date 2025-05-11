@@ -3,7 +3,7 @@
     "RestaurantName": "El Azteca",
     "category": "Mexican",
     "rating": 4,
-    "image": "/src/assets/images/el-azteca.jpg",
+    "image": "https://www.desmoinesregister.com/gcdn/presto/2019/12/19/PDEM/dd05f259-fff5-45c7-b3a0-8daf2c3c3f55-Capture.JPG?crop=738,416,x0,y0&width=738&height=416&format=pjpg&auto=webp",
     "bio": "Cozy spot serving classic Mexican eats, including fajitas and margaritas, plus gluten-free and vegetarian options.",
     "location": "2727 Strange Rd, Ames, IA 50010",
     "Hours": "11:00 AM – 9 PM",
@@ -26,7 +26,7 @@
     "RestaurantName": "Blaze Pizza",
     "category": "Pizza",
     "rating": 4.2,
-    "image": "/src/assets/images/blaze.jpg",
+    "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRNT09waZPKazoamL6i1-_YDcTpmmzYd63ylw&s",
     "bio": "Fast-fired artisanal pizza with fresh made-from-scratch dough and healthful, artisanal ingredients on the assembly line.",
     "location": "2320 Lincoln Way, Ames, IA 50014",
     "Hours": "11:00 AM – 10:00 PM",
@@ -72,7 +72,7 @@
     "RestaurantName": "Panda Express",
     "category": "Asian",
     "rating": 3.8,
-    "image": "/src/assets/images/panda.jpg",
+    "image": "https://i0.wp.com/mustangnews.net/wp-content/uploads/2024/04/IMG_0660.heic?fit=780%2C9999&ssl=1",
     "bio": "Fast-casual restaurant serving American Chinese cuisine with fresh ingredients and bold flavors.",
     "location": "1310 S Duff Ave, Ames, IA 50010",
     "Hours": "10:30 AM – 10:30 PM",
@@ -95,7 +95,7 @@
     "RestaurantName": "Hickory Park",
     "category": "BBQ",
     "rating": 4.5,
-    "image": "/src/assets/images/hickory-park.jpg",
+    "image": "https://www.amestrib.com/gcdn/authoring/2019/09/05/NATR/ghows-IA-1678e7dc-d9bc-44f9-94c0-29ceb622f75f-a894f82e.jpeg?width=1200&disable=upscale&format=pjpg&auto=webp",
     "bio": "Local favorite serving barbecue, ice cream, and American comfort food in a family-friendly atmosphere.",
     "location": "1404 S Duff Ave, Ames, IA 50010",
     "Hours": "11:00 AM – 9:00 PM",
@@ -118,7 +118,7 @@
     "RestaurantName": "Jeff's Pizza Shop",
     "category": "Pizza",
     "rating": 4.3,
-    "image": "/src/assets/images/jeffs-pizza.jpg",
+    "image": "https://static.wixstatic.com/media/fd3bc4_0712fbf79d114c55876a5327a01f4c50~mv2.jpg/v1/fit/w_2500,h_1330,al_c/fd3bc4_0712fbf79d114c55876a5327a01f4c50~mv2.jpg",
     "bio": "Local pizzeria offering hand-tossed pizzas, calzones, and subs with late-night delivery options.",
     "location": "2402 Lincoln Way, Ames, IA 50014",
     "Hours": "11:00 AM – 2:00 AM",
@@ -137,4 +137,4 @@
     ],
     "dateAdded": "2023-02-10T11:15:00.000Z"
   }
-] 
+]

@@ -38,6 +38,7 @@ const LoginPage = ({ setUser }) => {
                 throw new Error(data.error || 'Login failed');
             }
 
+            localStorage.setItem('user', JSON.stringify(data.user))
             setUser(data.user);
             navigate('/');
         } catch (error) {
