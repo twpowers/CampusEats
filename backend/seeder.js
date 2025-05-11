@@ -19,8 +19,18 @@ const importData = async () => {
 
 }
 
+const clearData = async () => {
+    try {
+        await Restruant.deleteMany({})
+        console.log("Deleated restruant data");
+        process.exit()
+    } catch (e) {
+        console.error(`Error ${e}`);
+        process.exit(1)
+    }
+}
 if (process.argv[2] == "-d") {
-
+    clearData();
 } else (
     importData()
 )
