@@ -4,7 +4,7 @@ import RestaurantCard from "./RestaurantCard";
 import { Link } from "react-router-dom";
 import { PlusIcon } from "@heroicons/react/24/outline";
 
-const CategoriesPage = ({ newRestaurant }) => {
+const CategoriesPage = ({ newRestaurant, user }) => {
     const [searchInput, setSearchInput] = useState("");
     const [sortOption, setSortOption] = useState("");
     const [displayedRestaurants, setDisplayedRestaurants] = useState([]);

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Category from "./Category";
 import restaurantData from "../assets/data-with-dates.json";
 
-const HomePage = () => {
+const HomePage = ({ user }) => {
     const [newestRestaurants, setNewestRestaurants] = useState([]);
     const [topRatedRestaurants, setTopRatedRestaurants] = useState([]);
     const [localFavorites, setLocalFavorites] = useState([]);
