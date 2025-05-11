@@ -7,31 +7,60 @@ const HomePage = () => {
     const [topRatedRestaurants, setTopRatedRestaurants] = useState([]);
     const [localFavorites, setLocalFavorites] = useState([]);
 
+    const fetchAllRestaurants = async () => {
+        try {
+            const response = await fetch("http://localhost:3000/restaurants");
+
+            if (!response.ok) {
+                throw Error(`Http error Status: ${response.status}`)
+            }
+
+            const restaurants = await response.json();
+
+            console.log("restaurants", restaurants);
+            return restaurants;
+        } catch (e) {
+            console.error("Error fetching restaurants:", e);
+            return [];
+        }
+    }
+
     useEffect(() => {
-        const allRestaurants = restaurantData.Restaurant;
 
-        const getNewestRestaurants = () => {
-            return [...allRestaurants]
-                .sort((a, b) => new Date(b.dateAdded) - new Date(a.dateAdded))
-                .slice(0, 3);
-        };
+        const loadRestaurants = async () => {
+            try {
+                const data = await fetchAllRestaurants();
 
-        const getTopRatedRestaurants = () => {
-            return [...allRestaurants]
-                .sort((a, b) => b.rating - a.rating)
-                .slice(0, 3);
-        };
+                if (data) {
 
-        const getLocalFavorites = () => {
-            const favoriteNames = ["Hickory Park", "Jeff's Pizza Shop", "El Azteca"];
-            return allRestaurants.filter(restaurant =>
-                favoriteNames.includes(restaurant.RestaurantName)
-            );
-        };
+                    const getNewestRestaurants = () => {
+                        return [...data]
+                            .sort((a, b) => new Date(b.dateAdded | b.createdAt) - new Date(a.dateAdded | a.createdAt))
+                            .slice(0, 3);
+                    };
 
-        setNewestRestaurants(getNewestRestaurants());
-        setTopRatedRestaurants(getTopRatedRestaurants());
-        setLocalFavorites(getLocalFavorites());
+                    const getTopRatedRestaurants = () => {
+                        return [...data]
+                            .sort((a, b) => b.rating - a.rating)
+                            .slice(0, 3);
+                    };
+
+                    const getLocalFavorites = () => {
+                        const favoriteNames = ["Hickory Park", "Jeff's Pizza Shop", "El Azteca"];
+                        return data.filter(restaurant =>
+                            favoriteNames.includes(restaurant.RestaurantName)
+                        );
+                    };
+                    setNewestRestaurants(getNewestRestaurants());
+                    setTopRatedRestaurants(getTopRatedRestaurants());
+                    setLocalFavorites(getLocalFavorites());
+                }
+
+            } catch (e) {
+                console.error("Error getting data");
+            }
+        }
+        loadRestaurants()
     }, []);
 
     return (

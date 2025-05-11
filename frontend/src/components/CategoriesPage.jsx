@@ -33,8 +33,18 @@ const CategoriesPage = ({ newRestaurant }) => {
 
     useEffect(() => {
         const loadRestaurants = async () => {
-            const data = await fetchAllRestaurants();
-            setAllRestaurants(data);
+            try {
+                const data = await fetchAllRestaurants();
+                if (data) {
+                    setAllRestaurants(data);
+                } else {
+                    console.warn("no data");
+                    setAllRestaurants([]);
+                }
+            } catch (error) {
+                console.error("Failed to load restaurants:", error);
+                setAllRestaurants([]);
+            }
         };
         loadRestaurants();
     }, []);
