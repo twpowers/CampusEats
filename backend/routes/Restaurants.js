@@ -1,8 +1,8 @@
 const express = require("express")
 const router = express.Router();
-const Restaurant = require("../models/Restruant");
+const Restaurant = require("../models/Restaurant");
 
-router.post("/addRestraunt", async (req, res) => {
+router.post("/addRestaurant", async (req, res) => {
     try {
         const restaurant = new Restaurant({
             RestaurantName: req.body.name,
@@ -79,4 +79,4 @@ router.get("/", async (req, res) => {
     }
 });
 
-module.exports = router;
+module.exports = router; 

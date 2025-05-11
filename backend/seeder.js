@@ -1,19 +1,19 @@
 const mongoose = require('mongoose');
-const Restruant = require('./models/Restruant');
-const restruntData = require("./data/restaurants.json")
+const Restaurant = require('./models/Restaurant');
+const restaurantData = require("./data/restaurants.json")
 mongoose.connect('mongodb://localhost:27017/CampusEats');
 
 
 const importData = async () => {
     try {
-        await Restruant.deleteMany({})
-        console.log("Deleated restruant data");
+        await Restaurant.deleteMany({})
+        console.log("Deleted restaurant data");
 
-        for (const resturant of restruntData) {
-            const newRestrauunt = new Restruant(resturant);
-            await newRestrauunt.save()
+        for (const restaurant of restaurantData) {
+            const newRestaurant = new Restaurant(restaurant);
+            await newRestaurant.save()
         }
-        console.log("Added restrturant data");
+        console.log("Added restaurant data");
         process.exit()
     } catch (e) {
         console.error(`Error ${e}`);
@@ -24,8 +24,8 @@ const importData = async () => {
 
 const clearData = async () => {
     try {
-        await Restruant.deleteMany({})
-        console.log("Deleated restruant data");
+        await Restaurant.deleteMany({})
+        console.log("Deleted restaurant data");
         process.exit()
     } catch (e) {
         console.error(`Error ${e}`);

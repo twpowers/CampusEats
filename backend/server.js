@@ -10,7 +10,7 @@ connectToDatabase().catch(console.error);
 
 const testRoute = require('./routes/test')
 const usersRoute = require('./routes/Users')
-const restruantsRoute = require("./routes/Restruants")
+const restaurantsRoute = require("./routes/Restaurants")
 
 app.use(express.json())
 app.use(cors());
@@ -18,7 +18,7 @@ app.use(morgan("dev"));
 
 app.use("/", testRoute);
 app.use("/users", usersRoute);
-app.use("/resterunts", restruantsRoute);
+app.use("/restaurants", restaurantsRoute);
 
 app.listen(port, () => {
     console.log(`Server has started on port ${port}`)
