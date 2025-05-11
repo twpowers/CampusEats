@@ -1,0 +1,94 @@
+[
+  {
+    "RestaurantName": "El Azteca",
+    "category": "Mexican",
+    "rating": 4,
+    "image": "/src/assets/images/el-azteca.jpg",
+    "bio": "Cozy spot serving classic Mexican eats, including fajitas and margaritas, plus gluten-free and vegetarian options.",
+    "location": "2727 Strange Rd, Ames, IA 50010",
+    "Hours": "11:00 AM – 9 PM",
+    "price_Range": "$10 – $20",
+    "menu": [
+      {
+        "item": "Tortilla Soup",
+        "description": "Shredded chicken with rice, pico de gallo & avocado. Served with our homemade fried tortillas",
+        "price": "$9.25"
+      },
+      {
+        "item": "Enchiladas Poblanas",
+        "description": "Three shredded chicken enchiladas topped with mole sauce & cheese. Served with guacamole salad & rice",
+        "price": "$12.45"
+      }
+    ],
+    "dateAdded": "2023-04-15T14:30:00.000Z"
+  },
+  {
+    "RestaurantName": "Blaze Pizza",
+    "category": "Pizza",
+    "rating": 4.2,
+    "image": "/src/assets/images/blaze.jpg",
+    "bio": "Fast-fired artisanal pizza with fresh made-from-scratch dough and healthful, artisanal ingredients on the assembly line.",
+    "location": "2320 Lincoln Way, Ames, IA 50014",
+    "Hours": "11:00 AM – 10:00 PM",
+    "price_Range": "$8 – $15",
+    "menu": [
+      {
+        "item": "Build Your Own Pizza",
+        "description": "Create your own pizza with unlimited toppings, cooked in a blazing hot oven for 180 seconds",
+        "price": "$8.95"
+      },
+      {
+        "item": "Meat Eater",
+        "description": "Pepperoni, crumbled meatballs, red onion, mozzarella, red sauce",
+        "price": "$9.95"
+      }
+    ],
+    "dateAdded": "2023-05-20T10:15:00.000Z"
+  },
+  {
+    "RestaurantName": "Wild Burger",
+    "category": "Burgers",
+    "rating": 4.1,
+    "image": "/src/assets/images/wild burger.jpeg",
+    "bio": "Gourmet burgers made with premium ingredients, offering a variety of unique toppings and flavor combinations.",
+    "location": "400 South Duff Ave, Ames, IA 50010",
+    "Hours": "11:00 AM – 12:00 AM",
+    "price_Range": "$10 – $18",
+    "menu": [
+      {
+        "item": "Classic Burger",
+        "description": "Angus beef patty with lettuce, tomato, onion, pickles, and special sauce on a brioche bun",
+        "price": "$10.99"
+      },
+      {
+        "item": "Wild Bacon Burger",
+        "description": "Angus beef patty topped with applewood smoked bacon, cheddar cheese, and BBQ sauce",
+        "price": "$12.99"
+      }
+    ],
+    "dateAdded": "2023-03-10T09:45:00.000Z"
+  },
+  {
+    "RestaurantName": "Panda Express",
+    "category": "Asian",
+    "rating": 3.8,
+    "image": "/src/assets/images/panda.jpg",
+    "bio": "Fast-casual restaurant serving American Chinese cuisine with fresh ingredients and bold flavors.",
+    "location": "1310 S Duff Ave, Ames, IA 50010",
+    "Hours": "10:30 AM – 10:30 PM",
+    "price_Range": "$8 – $15",
+    "menu": [
+      {
+        "item": "Orange Chicken",
+        "description": "Crispy chicken wok-tossed in a sweet and spicy orange sauce",
+        "price": "$4.50"
+      },
+      {
+        "item": "Beijing Beef",
+        "description": "Crispy beef, bell peppers and onions in a sweet-tangy sauce",
+        "price": "$4.50"
+      }
+    ],
+    "dateAdded": "2023-06-05T16:20:00.000Z"
+  }
+] 
