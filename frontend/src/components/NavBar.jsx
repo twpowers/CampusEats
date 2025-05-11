@@ -15,7 +15,7 @@ function classNames(...classes) {
 
 }
 
-export default function NavBar() {
+export default function NavBar({ user, setUser }) {
     const location = useLocation();
     const currentPath = location.pathname;
 
@@ -23,6 +23,10 @@ export default function NavBar() {
         ...item,
         current: item.href === currentPath
     }));
+    
+    const handleLogout = () => {
+        setUser(null);
+    };
 
     return (
         <Disclosure as="nav" className="bg-gray-800 w-full">
@@ -94,41 +98,69 @@ export default function NavBar() {
                                 <MenuButton className="relative flex rounded-full bg-gray-800 text-sm focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800 focus:outline-hidden">
                                     <span className="absolute -inset-1.5" />
                                     <span className="sr-only">Open user menu</span>
-                                    <img
-                                        alt=""
-                                        src=""
-                                        className="size-8 rounded-full"
-                                    />
+                                    {user ? (
+                                        <div className="size-8 rounded-full bg-indigo-600 flex items-center justify-center text-white font-medium">
+                                            {user.name ? user.name.charAt(0).toUpperCase() : user.email.charAt(0).toUpperCase()}
+                                        </div>
+                                    ) : (
+                                        <div className="size-8 rounded-full bg-gray-600 flex items-center justify-center text-white">
+                                            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                                <path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd" />
+                                            </svg>
+                                        </div>
+                                    )}
                                 </MenuButton>
                             </div>
                             <MenuItems
                                 transition
                                 className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black/5 transition focus:outline-hidden data-closed:scale-95 data-closed:transform data-closed:opacity-0 data-enter:duration-100 data-enter:ease-out data-leave:duration-75 data-leave:ease-in"
                             >
-                                <MenuItem>
-                                    <a
-                                        href="#"
-                                        className="block px-4 py-2 text-sm text-gray-700 data-focus:bg-gray-100 data-focus:outline-hidden"
-                                    >
-                                        Your Profile
-                                    </a>
-                                </MenuItem>
-                                <MenuItem>
-                                    <a
-                                        href="#"
-                                        className="block px-4 py-2 text-sm text-gray-700 data-focus:bg-gray-100 data-focus:outline-hidden"
-                                    >
-                                        Settings
-                                    </a>
-                                </MenuItem>
-                                <MenuItem>
-                                    <a
-                                        href="#"
-                                        className="block px-4 py-2 text-sm text-gray-700 data-focus:bg-gray-100 data-focus:outline-hidden"
-                                    >
-                                        Sign out
-                                    </a>
-                                </MenuItem>
+                                {user ? (
+                                    <>
+                                        <MenuItem>
+                                            <span
+                                                className="block px-4 py-2 text-sm text-gray-700 font-semibold"
+                                            >
+                                                {user.name || user.email}
+                                            </span>
+                                        </MenuItem>
+                                        <MenuItem>
+                                            <Link
+                                                to="/profile"
+                                                className="block px-4 py-2 text-sm text-gray-700 data-focus:bg-gray-100 data-focus:outline-hidden"
+                                            >
+                                                Your Profile
+                                            </Link>
+                                        </MenuItem>
+                                        <MenuItem>
+                                            <button
+                                                onClick={handleLogout}
+                                                className="block w-full text-left px-4 py-2 text-sm text-gray-700 data-focus:bg-gray-100 data-focus:outline-hidden"
+                                            >
+                                                Sign out
+                                            </button>
+                                        </MenuItem>
+                                    </>
+                                ) : (
+                                    <>
+                                        <MenuItem>
+                                            <Link
+                                                to="/login"
+                                                className="block px-4 py-2 text-sm text-gray-700 data-focus:bg-gray-100 data-focus:outline-hidden"
+                                            >
+                                                Log In
+                                            </Link>
+                                        </MenuItem>
+                                        <MenuItem>
+                                            <Link
+                                                to="/signup"
+                                                className="block px-4 py-2 text-sm text-gray-700 data-focus:bg-gray-100 data-focus:outline-hidden"
+                                            >
+                                                Sign Up
+                                            </Link>
+                                        </MenuItem>
+                                    </>
+                                )}
                             </MenuItems>
                         </Menu>
                     </div>

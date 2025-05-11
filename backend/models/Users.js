@@ -2,11 +2,11 @@ const mongoose = require("mongoose");
 const AutoIncrement = require('mongoose-sequence')(mongoose);
 
 const userSchema = new mongoose.Schema({
-    name: { type: String, require: true },
+    name: { type: String, required: true },
     email: {
-        type: String, require: true, unique: true
+        type: String, required: true, unique: true
     },
-    password: { type: String, require: true },
+    password: { type: String, required: true },
     createdAt: { type: Date, default: Date.now() }
 
 })

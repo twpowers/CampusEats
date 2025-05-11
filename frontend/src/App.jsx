@@ -5,10 +5,11 @@ import CategoriesPage from "./components/CategoriesPage";
 import AddRestaurantPage from "./components/AddRestaurantPage";
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import LoginPage from "./components/LoginPage";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
     const [lastAddedRestaurant, setLastAddedRestaurant] = useState(null);
-    const [user, setUser] = useState(null)
+    const [user, setUser] = useState(null);
     const lastRestaurantRef = useRef(null);
 
     const handleRestaurantAdded = (newRestaurant) => {
@@ -18,12 +19,24 @@ function App() {
 
     return (
         <Router>
-            <NavBar />
+            <NavBar user={user} setUser={setUser} />
             <Routes>
-                <Route path="/login" element={<LoginPage user={user} />} />
-                <Route path="/" element={<HomePage user={user} />} />
-                <Route path="/categories" element={<CategoriesPage newRestaurant={lastAddedRestaurant} user={user} />} />
-                <Route path="/add-restaurant" element={<AddRestaurantPage onRestaurantAdded={handleRestaurantAdded} user={user} />} />
+                <Route path="/login" element={<LoginPage user={user} setUser={setUser} />} />
+                <Route path="/" element={
+                    <ProtectedRoute user={user}>
+                        <HomePage />
+                    </ProtectedRoute>
+                } />
+                <Route path="/categories" element={
+                    <ProtectedRoute user={user}>
+                        <CategoriesPage newRestaurant={lastAddedRestaurant} />
+                    </ProtectedRoute>
+                } />
+                <Route path="/add-restaurant" element={
+                    <ProtectedRoute user={user}>
+                        <AddRestaurantPage onRestaurantAdded={handleRestaurantAdded} />
+                    </ProtectedRoute>
+                } />
             </Routes>
         </Router>
     );

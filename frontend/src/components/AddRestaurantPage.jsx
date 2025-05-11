@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const AddRestaurantPage = ({ onRestaurantAdded, user }) => {
+const AddRestaurantPage = ({ onRestaurantAdded }) => {
     const navigate = useNavigate();
     const [formData, setFormData] = useState({
         RestaurantName: "",

@@ -1,11 +1,12 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-const LoginPage = () => {
+const LoginPage = ({ setUser }) => {
+    const navigate = useNavigate();
     const [formData, setFormData] = useState({
         email: '',
         password: ''
     });
-
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData({
@@ -14,8 +15,34 @@ const LoginPage = () => {
         });
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
+
+        try {
+
+            const res = await fetch("http://localhost:3000/users/login", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    email: formData.email,
+                    password: formData.password
+                }),
+            });
+
+            const data = await res.json();
+            console.log(data);
+
+            if (!res.ok) {
+                throw new Error(data.error || 'Login failed');
+            }
+
+            setUser(data.user);
+            navigate('/');
+        } catch (error) {
+            console.error("Login failed:", error);
+        }
     };
 
     return (
@@ -48,8 +75,9 @@ const LoginPage = () => {
                         </div>
                         <div className="">
                             <button
-                                className="w-full bg-indigo-600 hover:bg-indigo-700 text-white py-3 px-4 rounded-md text-xl"
-                                type="submit">
+                                className="w-full bg-indigo-600 hover:bg-indigo-700 text-white py-3 px-4 rounded-md text-xl mb-4"
+                                type="submit"
+                            >
                                 Submit
                             </button>
                         </div>
