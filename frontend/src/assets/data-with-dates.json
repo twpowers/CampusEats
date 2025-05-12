@@ -8,7 +8,7 @@
       "bio": "Cozy spot serving classic Mexican eats, including fajitas and margaritas, plus gluten-free and vegetarian options.",
       "location": "2727 Strange Rd, Ames, IA 50010",
       "Hours": "11:00 AM – 9 PM",
-      "price_Range": "$10 – $20",
+      "price_range": "$10 – $20",
       "dateAdded": "2023-10-15",
       "menu": [
         {
@@ -31,7 +31,7 @@
       "bio": "Fast-fired artisanal pizza with fresh made-from-scratch dough and healthful, artisanal ingredients on the assembly line.",
       "location": "2320 Lincoln Way, Ames, IA 50014",
       "Hours": "11:00 AM – 10:00 PM",
-      "price_Range": "$8 – $15",
+      "price_range": "$8 – $15",
       "dateAdded": "2023-12-22",
       "menu": [
         {
@@ -54,7 +54,7 @@
       "bio": "Gourmet burgers made with premium ingredients, offering a variety of unique toppings and flavor combinations.",
       "location": "400 South Duff Ave, Ames, IA 50010",
       "Hours": "11:00 AM – 12:00 AM",
-      "price_Range": "$10 – $18",
+      "price_range": "$10 – $18",
       "dateAdded": "2024-01-18",
       "menu": [
         {
@@ -77,7 +77,7 @@
       "bio": "Fast-casual restaurant serving American Chinese cuisine with fresh ingredients and bold flavors.",
       "location": "1310 S Duff Ave, Ames, IA 50010",
       "Hours": "10:30 AM – 10:30 PM",
-      "price_Range": "$8 – $15",
+      "price_range": "$8 – $15",
       "dateAdded": "2024-03-05",
       "menu": [
         {
@@ -100,7 +100,7 @@
       "bio": "Family-owned Chinese restaurant offering authentic dishes with fresh ingredients and traditional recipes.",
       "location": "223 Welch Ave, Ames, IA 50014",
       "Hours": "11:00 AM – 9:30 PM",
-      "price_Range": "$9 – $16",
+      "price_range": "$9 – $16",
       "dateAdded": "2024-04-10",
       "menu": [
         {
@@ -123,7 +123,7 @@
       "bio": "Student-favorite pizza joint serving creative pizzas, calzones, and wings with late-night delivery options.",
       "location": "2402 Lincoln Way, Ames, IA 50014",
       "Hours": "11:00 AM – 2:00 AM",
-      "price_Range": "$8 – $17",
+      "price_range": "$8 – $17",
       "dateAdded": "2023-09-01",
       "menu": [
         {
@@ -146,7 +146,7 @@
       "bio": "Iconic Ames restaurant serving BBQ, burgers, and homemade ice cream in a rustic family-friendly environment.",
       "location": "1404 S Duff Ave, Ames, IA 50010",
       "Hours": "11:00 AM – 9:00 PM",
-      "price_Range": "$10 – $20",
+      "price_range": "$10 – $20",
       "dateAdded": "2023-08-12",
       "menu": [
         {
@@ -169,7 +169,7 @@
       "bio": "Vibrant Mexican restaurant offering authentic dishes, fresh margaritas, and a festive atmosphere.",
       "location": "823 Wheeler St, Ames, IA 50010",
       "Hours": "11:00 AM – 10:00 PM",
-      "price_Range": "$9 – $18",
+      "price_range": "$9 – $18",
       "dateAdded": "2024-02-28",
       "menu": [
         {

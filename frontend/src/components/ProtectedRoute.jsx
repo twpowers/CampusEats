@@ -9,7 +9,7 @@ const ProtectedRoute = ({ children }) => {
     useEffect(() => {
         try {
             const user = localStorage.getItem('user')
-            
+
             if (user) {
                 setLoggedIn(JSON.parse(user))
             } else {

@@ -105,8 +105,8 @@ const CategoriesPage = ({ newRestaurant }) => {
                     valueB = b.RestaurantName ? b.RestaurantName.toLowerCase() : '';
                 } else if (property === "price") {
                     try {
-                        valueA = a.price_Range ? parseInt(a.price_Range.match(/\$(\d+)/)?.[1] || 0) : 0;
-                        valueB = b.price_Range ? parseInt(b.price_Range.match(/\$(\d+)/)?.[1] || 0) : 0;
+                        valueA = a.price_range ? parseInt(a.price_range.match(/\$(\d+)/)?.[1] || 0) : 0;
+                        valueB = b.price_range ? parseInt(b.price_range.match(/\$(\d+)/)?.[1] || 0) : 0;
                     } catch (e) {
                         console.error("Error parsing price:", e);
                         valueA = 0;

@@ -8,7 +8,7 @@ const RestaurantCard = ({ restaurant }) => {
             image: rawRestaurant.image,
             rating: rawRestaurant.rating,
             description: rawRestaurant.bio,
-            price: rawRestaurant.price_Range,
+            price: rawRestaurant.price_range,
             category: rawRestaurant.category,
             dateAdded: rawRestaurant.dateAdded,
             location: rawRestaurant.location,

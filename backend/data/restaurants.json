@@ -7,7 +7,7 @@
     "bio": "Cozy spot serving classic Mexican eats, including fajitas and margaritas, plus gluten-free and vegetarian options.",
     "location": "2727 Strange Rd, Ames, IA 50010",
     "Hours": "11:00 AM – 9 PM",
-    "price_Range": "$10 – $20",
+    "price_range": "$10 – $20",
     "menu": [
       {
         "item": "Tortilla Soup",
@@ -30,7 +30,7 @@
     "bio": "Fast-fired artisanal pizza with fresh made-from-scratch dough and healthful, artisanal ingredients on the assembly line.",
     "location": "2320 Lincoln Way, Ames, IA 50014",
     "Hours": "11:00 AM – 10:00 PM",
-    "price_Range": "$8 – $15",
+    "price_range": "$8 – $15",
     "menu": [
       {
         "item": "Build Your Own Pizza",
@@ -53,7 +53,7 @@
     "bio": "Gourmet burgers made with premium ingredients, offering a variety of unique toppings and flavor combinations.",
     "location": "400 South Duff Ave, Ames, IA 50010",
     "Hours": "11:00 AM – 12:00 AM",
-    "price_Range": "$10 – $18",
+    "price_range": "$10 – $18",
     "menu": [
       {
         "item": "Classic Burger",
@@ -76,7 +76,7 @@
     "bio": "Fast-casual restaurant serving American Chinese cuisine with fresh ingredients and bold flavors.",
     "location": "1310 S Duff Ave, Ames, IA 50010",
     "Hours": "10:30 AM – 10:30 PM",
-    "price_Range": "$8 – $15",
+    "price_range": "$8 – $15",
     "menu": [
       {
         "item": "Orange Chicken",
@@ -99,7 +99,7 @@
     "bio": "Local favorite serving barbecue, ice cream, and American comfort food in a family-friendly atmosphere.",
     "location": "1404 S Duff Ave, Ames, IA 50010",
     "Hours": "11:00 AM – 9:00 PM",
-    "price_Range": "$10 – $25",
+    "price_range": "$10 – $25",
     "menu": [
       {
         "item": "Hickory's Big Beef Sandwich",
@@ -122,7 +122,7 @@
     "bio": "Local pizzeria offering hand-tossed pizzas, calzones, and subs with late-night delivery options.",
     "location": "2402 Lincoln Way, Ames, IA 50014",
     "Hours": "11:00 AM – 2:00 AM",
-    "price_Range": "$7 – $20",
+    "price_range": "$7 – $20",
     "menu": [
       {
         "item": "The Cyclone",
