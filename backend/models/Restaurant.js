@@ -15,7 +15,7 @@ const restaurantSchema = new mongoose.Schema({
     bio: { type: String, required: true },
     location: { type: String, required: true },
     Hours: { type: String, required: true },
-    price_Range: { type: String, required: true },
+    price_range: { type: String, required: true },
     menu: { type: [menuItemSchema], default: [] },
     dateAdded: { type: Date, default: Date.now }
 }, {

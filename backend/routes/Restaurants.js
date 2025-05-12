@@ -5,14 +5,14 @@ const Restaurant = require("../models/Restaurant");
 router.post("/addRestaurant", async (req, res) => {
     try {
         const restaurant = new Restaurant({
-            RestaurantName: req.body.name,
+            RestaurantName: req.body.RestaurantName,
             category: req.body.category,
             rating: req.body.rating,
             image: req.body.image,
             bio: req.body.bio,
             location: req.body.location,
-            Hours: req.body.hours,
-            price_Range: req.body.price_range,
+            Hours: req.body.Hours,
+            price_range: req.body.price_range,
             menu: req.body.menu || []
         });
 

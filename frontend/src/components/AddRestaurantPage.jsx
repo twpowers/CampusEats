@@ -11,7 +11,7 @@ const AddRestaurantPage = ({ onRestaurantAdded }) => {
         bio: "",
         location: "",
         Hours: "",
-        price_Range: "$",
+        price_range: "$",
         dateAdded: new Date().toISOString().split('T')[0],
     });
 
@@ -79,9 +79,24 @@ const AddRestaurantPage = ({ onRestaurantAdded }) => {
             const newRestaurant = {
                 ...formData,
                 rating: parseFloat(formData.rating),
-                image: formData.image || "/src/assets/images/default-restaurant.jpg",
+                image: formData.image,
                 id: Date.now().toString()
             };
+
+            fetch("http://localhost:3000/restaurants/addRestaurant", {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(newRestaurant)
+            })
+                .then(res => res.json())
+                .then(data => {
+                    console.log(data)
+                    console.log(JSON.stringify(newRestaurant))
+                }).catch(e => {
+                    console.error("There was an error adding a new restaurnt", e);
+                })
 
             if (onRestaurantAdded) {
                 onRestaurantAdded(newRestaurant);
@@ -235,14 +250,14 @@ const AddRestaurantPage = ({ onRestaurantAdded }) => {
                 </div>
 
                 <div className="mb-6">
-                    <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="price_Range">
+                    <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="price_range">
                         Price Range
                     </label>
                     <select
                         className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                        id="price_Range"
-                        name="price_Range"
-                        value={formData.price_Range}
+                        id="price_range"
+                        name="price_range"
+                        value={formData.price_range}
                         onChange={handleInputChange}
                     >
                         {priceRangeOptions.map(option => (
