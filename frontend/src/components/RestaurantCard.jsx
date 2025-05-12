@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const RestaurantCard = ({ restaurant }) => {
 
@@ -94,9 +95,11 @@ const RestaurantCard = ({ restaurant }) => {
                         <span>{price}</span>
                     </div>
                 </div>
-                <button className="mt-4 w-full py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-md transition-colors">
+                <Link to={`/restaurants/${restaurant._id}`}
+                    className="mt-4 block text-center py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-md transition-colors"
+                >
                     View Details
-                </button>
+                </Link>
             </div>
         </div>
     );

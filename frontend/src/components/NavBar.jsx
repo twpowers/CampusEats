@@ -6,7 +6,7 @@ import { Link, Navigate, replace, useLocation, useNavigate } from 'react-router-
 const navigation = [
     { name: 'Top Restaurants', href: '/', current: true },
     { name: 'Categories', href: '/categories', current: false },
-    { name: 'Reviews', href: '#', current: false },
+    { name: 'Reviews', href: '/reviews', current: false },
     { name: 'About', href: '#', current: false },
 ]
 
