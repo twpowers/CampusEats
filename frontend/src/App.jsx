@@ -57,7 +57,7 @@ function App() {
                 />
                 <Route
                     path="/reviews"
-                    element={<ProtectedRoute user={user}><ReviewsPage /></ProtectedRoute>}
+                    element={<ReviewsPage user={user} />}
                 />
                 <Route
                     path="/create-review"

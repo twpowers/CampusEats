@@ -46,4 +46,35 @@ router.post('/:id/reviews', async (req, res) => {
   }
 });
 
+router.delete('/:id/reviews/:reviewId', async (req, res) => {
+  try {
+    const { id: restaurantId, reviewId } = req.params;
+    const deleted = await Review.findOneAndDelete({
+      _id: reviewId,
+      restaurant: restaurantId
+    });
+    if (!deleted) return res.status(404).json({ error: 'Review not found' });
+    res.json({ message: 'Review deleted' });
+  } catch (err) {
+    console.error('Delete review error', err);
+    res.status(500).json({ error: 'Server Error' });
+  }
+});
+
+router.put('/:id/reviews/:reviewId', async (req, res) => {
+  try {
+    const { id: restaurantId, reviewId } = req.params;
+    const { rating, comment } = req.body;
+    const updated = await Review.findOneAndUpdate(
+      { _id: reviewId, restaurant: restaurantId },
+      { rating, comment, updatedAt: Date.now() },
+      { new: true }
+    );
+    if (!updated) return res.status(404).json({ error: 'Review not found' });
+    res.json(updated);
+  } catch (err) {
+    console.error('Update review error', err);
+    res.status(500).json({ error: 'Server Error' });
+  }
+});
 module.exports = router;
