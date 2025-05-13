@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 const LoginPage = ({ setUser }) => {
     const navigate = useNavigate();
@@ -19,7 +19,6 @@ const LoginPage = ({ setUser }) => {
         e.preventDefault();
 
         try {
-
             const res = await fetch("http://localhost:3000/users/login", {
                 method: 'POST',
                 headers: {
@@ -83,10 +82,12 @@ const LoginPage = ({ setUser }) => {
                             </button>
                         </div>
                     </form>
+                    <div className="text-center mt-4">
+                        <p>Not a user? <Link to="/signup" className="text-indigo-600 hover:text-indigo-800 font-medium">Create an Account</Link></p>
+                    </div>
                 </div>
             </div>
         </div>
     );
 };
-
 export default LoginPage;
