@@ -7,6 +7,8 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import LoginPage from "./components/LoginPage";
 import ProtectedRoute from "./components/ProtectedRoute";
 import RestaurantDetailPage from "./components/RestaurantDetailPage";
+import ReviewsPage from './components/ReviewsPage';
+import CreateReviewPage from './components/CreateReviewPage';
 
 function App() {
     const [lastAddedRestaurant, setLastAddedRestaurant] = useState(null);
@@ -52,6 +54,14 @@ function App() {
                     <   RestaurantDetailPage user={user} />
                     </ProtectedRoute>
                 }
+                />
+                <Route
+                    path="/reviews"
+                    element={<ProtectedRoute user={user}><ReviewsPage /></ProtectedRoute>}
+                />
+                <Route
+                    path="/create-review"
+                    element={<ProtectedRoute user={user}><CreateReviewPage /></ProtectedRoute>}
                 />
             </Routes>
         </Router>
