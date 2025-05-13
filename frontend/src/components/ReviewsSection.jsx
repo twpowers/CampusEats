@@ -37,10 +37,8 @@ export default function ReviewsSection({ restaurantId, user }) {
       const response = await fetch(`${API_BASE}/restaurants/${restaurantId}/reviews/${id}`, { method: 'DELETE' });
       if (!response.ok) throw new Error('Failed to delete review');
       
-      // Remove from local state for immediate UI update
       setReviews(prevReviews => prevReviews.filter(review => review._id !== id));
       
-      // Refresh from server to ensure sync
       loadReviews();
     } catch (err) {
       setError(err.message);
@@ -289,7 +287,6 @@ export default function ReviewsSection({ restaurantId, user }) {
         </div>
       )}
 
-      {/* New Review Form */}
       {user && editingId === null && (
         <div className="mt-8 bg-gray-50 rounded-lg border border-gray-200 p-6">
           <h3 className="text-xl font-semibold text-gray-800 mb-4">Write a Review</h3>

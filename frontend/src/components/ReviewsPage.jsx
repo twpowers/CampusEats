@@ -138,28 +138,11 @@ function CreateReviewModal({ restaurantId, restaurantName, user, onClose }) {
     e.preventDefault();
     setIsSubmitting(true);
     setSubmitError(null);
-
-    // Simulate submitting to backend
-    // In a real app, you would send this data to your API endpoint
-    // fetch('http://localhost:3000/reviews', {
-    //   method: 'POST',
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //   },
-    //   body: JSON.stringify({
-    //     restaurantId,
-    //     userId: user._id,
-    //     rating: formData.rating,
-    //     comment: formData.review
-    //   }),
-    // })
     
-    // For demonstration, just simulate a successful submission after a delay
     setTimeout(() => {
       setIsSubmitting(false);
       setSubmitSuccess(true);
       
-      // Auto close after success
       setTimeout(() => {
         onClose();
       }, 1500);
