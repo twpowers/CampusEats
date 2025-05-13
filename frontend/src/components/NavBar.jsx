@@ -7,7 +7,7 @@ const navigation = [
     { name: 'Top Restaurants', href: '/', current: true },
     { name: 'Categories', href: '/categories', current: false },
     { name: 'Reviews', href: '/reviews', current: false },
-    { name: 'About', href: '#', current: false },
+    { name: 'About', href: '/about', current: false },
 ]
 
 function classNames(...classes) {

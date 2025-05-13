@@ -9,6 +9,7 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import RestaurantDetailPage from "./components/RestaurantDetailPage";
 import ReviewsPage from './components/ReviewsPage';
 import CreateReviewPage from './components/CreateReviewPage';
+import AboutPage from "./components/AboutPage";
 
 function App() {
     const [lastAddedRestaurant, setLastAddedRestaurant] = useState(null);
@@ -63,6 +64,7 @@ function App() {
                     path="/create-review"
                     element={<ProtectedRoute user={user}><CreateReviewPage /></ProtectedRoute>}
                 />
+                <Route path="/about" element={<AboutPage />} />
             </Routes>
         </Router>
     );
