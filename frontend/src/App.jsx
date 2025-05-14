@@ -32,6 +32,7 @@ function Layout({ children, user, setUser }) {
 function App() {
     const [lastAddedRestaurant, setLastAddedRestaurant] = useState(null);
     const [user, setUser] = useState(null);
+    const [isLoading, setIsLoading] = useState(true);
     const lastRestaurantRef = useRef(null);
 
     useEffect(() => {
@@ -39,6 +40,7 @@ function App() {
         if (user) {
             setUser(JSON.parse(user))
         }
+        setIsLoading(false);
     }, [])
 
     const handleRestaurantAdded = (newRestaurant) => {
@@ -52,37 +54,37 @@ function App() {
                 <Routes>
                     <Route path="/login" element={<LoginPage user={user} setUser={setUser} />} />
                     <Route path="/" element={
-                        <ProtectedRoute user={user}>
+                        <ProtectedRoute user={user} isLoading={isLoading}>
                             <HomePage />
                         </ProtectedRoute>
                     } />
                     <Route path="/categories" element={
-                        <ProtectedRoute user={user}>
+                        <ProtectedRoute user={user} isLoading={isLoading}>
                             <CategoriesPage newRestaurant={lastAddedRestaurant} />
                         </ProtectedRoute>
                     } />
                     <Route path="/add-restaurant" element={
-                        <ProtectedRoute user={user}>
+                        <ProtectedRoute user={user} isLoading={isLoading}>
                             <AddRestaurantPage onRestaurantAdded={handleRestaurantAdded} />
                         </ProtectedRoute>
                     } />
                     <Route path="/restaurants/:id" element={
-                        <ProtectedRoute user={user}>
+                        <ProtectedRoute user={user} isLoading={isLoading}>
                             <RestaurantDetailPage user={user} />
                         </ProtectedRoute>
                     } />
                     <Route path="/reviews" element={
-                        <ProtectedRoute user={user}>
+                        <ProtectedRoute user={user} isLoading={isLoading}>
                             <ReviewsPage user={user} />
                         </ProtectedRoute>
                     } />
                     <Route path="/create-review" element={
-                        <ProtectedRoute user={user}>
+                        <ProtectedRoute user={user} isLoading={isLoading}>
                             <CreateReviewPage />
                         </ProtectedRoute>
                     } />
                     <Route path="/profile" element={
-                        <ProtectedRoute user={user}>
+                        <ProtectedRoute user={user} isLoading={isLoading}>
                             <ProfilePage user={user} />
                         </ProtectedRoute>
                     } />
