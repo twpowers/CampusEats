@@ -4,9 +4,13 @@ import { Link } from "react-router-dom";
 const API_BASE = "http://localhost:3000";
 
 export default function ProfilePage({ user }) {
-  const [reviews, setReviews]   = useState([]);
-  const [loading, setLoading]   = useState(true);
-  const [error, setError]       = useState(null);
+  const [reviews, setReviews] = useState([]);
+  const [filteredReviews, setFilteredReviews] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [ratingFilter, setRatingFilter] = useState("all");
+  const [dateFilter, setDateFilter] = useState("all");
+  const [averageRating, setAverageRating] = useState(0);
 
   useEffect(() => {
     if (!user) return;
@@ -44,6 +48,12 @@ export default function ProfilePage({ user }) {
           .flat()
           .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
         setReviews(my);
+        setFilteredReviews(my);
+        
+        if (my.length > 0) {
+          const totalRating = my.reduce((sum, review) => sum + review.rating, 0);
+          setAverageRating(totalRating / my.length);
+        }
       })
       .catch(e => {
         console.error(e);
@@ -51,6 +61,37 @@ export default function ProfilePage({ user }) {
       })
       .finally(() => setLoading(false));
   }, [user]);
+
+  useEffect(() => {
+    if (!reviews.length) return;
+    
+    let filtered = [...reviews];
+    
+    if (ratingFilter !== "all") {
+      const rating = parseInt(ratingFilter);
+      filtered = filtered.filter(review => 
+        rating === 5 ? review.rating === 5 : 
+        Math.floor(review.rating) === rating
+      );
+    }
+    
+    if (dateFilter !== "all") {
+      const now = new Date();
+      let cutoff = new Date();
+      
+      if (dateFilter === "week") {
+        cutoff.setDate(now.getDate() - 7);
+      } else if (dateFilter === "month") {
+        cutoff.setMonth(now.getMonth() - 1);
+      } else if (dateFilter === "year") {
+        cutoff.setFullYear(now.getFullYear() - 1);
+      }
+      
+      filtered = filtered.filter(review => new Date(review.createdAt) >= cutoff);
+    }
+    
+    setFilteredReviews(filtered);
+  }, [ratingFilter, dateFilter, reviews]);
 
   const renderStars = rating => {
     const stars = [];
@@ -79,11 +120,88 @@ export default function ProfilePage({ user }) {
     <section className="space-y-6 max-w-4xl mx-auto p-6">
       <div className="flex items-center justify-between">
         <h1 className="text-4xl font-bold">Hi {user.name}</h1>
-        <span className="bg-blue-50 text-blue-800 px-3 py-1 rounded-full text-sm">
-          {reviews.length} {reviews.length === 1 ? "Review" : "Reviews"}
-        </span>
+        <div className="flex flex-col items-end">
+          <span className="bg-blue-50 text-blue-800 px-3 py-1 rounded-full text-sm">
+            {reviews.length} {reviews.length === 1 ? "Review" : "Reviews"}
+          </span>
+          {reviews.length > 0 && (
+            <div className="flex items-center mt-1">
+              <span className="text-sm text-gray-600 mr-1">Average User Rating:</span>
+              <div className="flex items-center">
+                {renderStars(averageRating)}
+                <span className="ml-1 text-sm text-gray-700">({averageRating.toFixed(1)})</span>
+              </div>
+            </div>
+          )}
+        </div>
       </div>
-        <h3 className="text-2xl font-bold">Your Reviews</h3>
+
+      {reviews.length > 0 && (
+        <div className="container mx-auto mb-4">
+          <div className="grid grid-cols-3 gap-3">
+            <div className="col-span-2">
+              <div className="flex">
+                <span className="inline-flex items-center px-3 text-gray-500 bg-gray-200 border border-r-0 border-gray-300 rounded-l-md">
+                  <svg className="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                  </svg>
+                </span>
+                <select
+                  id="rating-filter"
+                  value={ratingFilter}
+                  onChange={(e) => setRatingFilter(e.target.value)}
+                  className="rounded-none rounded-r-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full p-2.5"
+                >
+                  <option value="all">All Ratings</option>
+                  <option value="5">5 Stars</option>
+                  <option value="4">4 Stars</option>
+                  <option value="3">3 Stars</option>
+                  <option value="2">2 Stars</option>
+                  <option value="1">1 Star</option>
+                </select>
+              </div>
+            </div>
+            <div>
+              <div className="flex">
+                <span className="inline-flex items-center px-3 text-gray-500 bg-gray-200 border border-r-0 border-gray-300 rounded-l-md">
+                  <svg className="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm0 18c-4.4 0-8-3.6-8-8s3.6-8 8-8 8 3.6 8 8-3.6 8-8 8zm1-13h-2v6l5.2 3.2.8-1.3-4-2.5V7z" />
+                  </svg>
+                </span>
+                <select
+                  id="date-filter"
+                  value={dateFilter}
+                  onChange={(e) => setDateFilter(e.target.value)}
+                  className="rounded-none rounded-r-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full p-2.5"
+                >
+                  <option value="all">All Time</option>
+                  <option value="week">Last Week</option>
+                  <option value="month">Last Month</option>
+                  <option value="year">Last Year</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          
+          {(ratingFilter !== "all" || dateFilter !== "all") && (
+            <div className="mb-4 mt-3">
+              <div className="flex justify-end items-center">
+                <button
+                  onClick={() => {
+                    setRatingFilter("all");
+                    setDateFilter("all");
+                  }}
+                  className="px-3 py-1 text-sm text-gray-600 border border-gray-300 rounded hover:bg-gray-100"
+                >
+                  Clear All Filters
+                </button>
+              </div>
+            </div>
+          )}
+        </div>
+      )}
+
+      <h3 className="text-2xl font-bold">Your Reviews</h3>
       {loading && (
         <div className="flex justify-center py-8">
           <div className="animate-spin h-10 w-10 border-t-2 border-b-2 border-blue-600 rounded-full" />
@@ -96,15 +214,30 @@ export default function ProfilePage({ user }) {
         </div>
       )}
 
-      {!loading && !error && reviews.length === 0 && (
-        <div className="bg-gray-50 rounded-lg border border-gray-200 p-6 text-center">
-          <p className="text-gray-600">You haven't written any reviews yet.</p>
+      {!loading && !error && filteredReviews.length === 0 && reviews.length > 0 && (
+        <div className="col-span-3 py-8 text-center">
+          <p className="text-gray-500 text-lg">No reviews match your current filters.</p>
+          <button
+            onClick={() => {
+              setRatingFilter("all");
+              setDateFilter("all");
+            }}
+            className="mt-4 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
+          >
+            Reset Filters
+          </button>
         </div>
       )}
 
-      {!loading && reviews.length > 0 && (
+      {!loading && !error && reviews.length === 0 && (
+        <div className="col-span-3 py-8 text-center">
+          <p className="text-gray-500 text-lg">You haven't written any reviews yet.</p>
+        </div>
+      )}
+
+      {!loading && filteredReviews.length > 0 && (
         <div className="space-y-4">
-          {reviews.map(r => (
+          {filteredReviews.map(r => (
             <div key={r._id} className="bg-white rounded-lg shadow-sm border border-gray-200 p-5 hover:shadow-md transition">
               <div className="flex justify-between items-start mb-3">
                 <div className="flex items-center">
