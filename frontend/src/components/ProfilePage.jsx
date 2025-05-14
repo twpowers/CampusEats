@@ -4,16 +4,16 @@ import { Link } from "react-router-dom";
 const API_BASE = "http://localhost:3000";
 
 export default function ProfilePage({ user }) {
-  const [reviews, setReviews]             = useState([]);
+  const [reviews, setReviews] = useState([]);
   const [filteredReviews, setFilteredReviews] = useState([]);
-  const [loading, setLoading]             = useState(true);
-  const [error, setError]                 = useState(null);
-  const [restaurantFilter, setRestaurantFilter] = useState("all");
-  const [dateFilter, setDateFilter]       = useState("all");
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [ratingFilter, setRatingFilter] = useState("all");
+  const [dateFilter, setDateFilter] = useState("all");
   const [averageRating, setAverageRating] = useState(0);
 
-  const [editingId, setEditingId]         = useState(null);
-  const [formState, setFormState]         = useState({ rating: 5, comment: "" });
+  const [editingId, setEditingId] = useState(null);
+  const [formState, setFormState] = useState({ rating: 5, comment: "" });
 
   useEffect(() => {
     if (!user) return;
@@ -38,26 +38,24 @@ export default function ProfilePage({ user }) {
                   .filter(rv => String(rv.user._id) === user._id)
                   .map(rv => ({
                     ...rv,
-                    restaurantId:    r._id,
-                    restaurantName:  r.RestaurantName || r.name,
-                    restaurantImage: r.image,
+                    restaurantId:       r._id,
+                    restaurantName:     r.RestaurantName || r.name,
+                    restaurantImage:    r.image,
                     restaurantCategory: r.category,
                     restaurantLocation: r.location,
                   }))
               )
           )
         );
-
         const my = arr
           .flat()
           .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-
         setReviews(my);
         setFilteredReviews(my);
-
+        
         if (my.length > 0) {
-          const total = my.reduce((sum, rv) => sum + rv.rating, 0);
-          setAverageRating(total / my.length);
+          const totalRating = my.reduce((sum, review) => sum + review.rating, 0);
+          setAverageRating(totalRating / my.length);
         }
       })
       .catch(e => {
@@ -69,55 +67,58 @@ export default function ProfilePage({ user }) {
 
   useEffect(() => {
     if (!reviews.length) return;
-
+    
     let filtered = [...reviews];
-
-    if (restaurantFilter !== "all") {
-      filtered = filtered.filter(r => r.restaurantId === restaurantFilter);
+    
+    if (ratingFilter !== "all") {
+      const rating = parseInt(ratingFilter);
+      filtered = filtered.filter(review => 
+        rating === 5 ? review.rating === 5 : 
+        Math.floor(review.rating) === rating
+      );
     }
-
+    
     if (dateFilter !== "all") {
       const now = new Date();
-      const cutoff = new Date();
-      if (dateFilter === "week")   cutoff.setDate(now.getDate() - 7);
-      if (dateFilter === "month")  cutoff.setMonth(now.getMonth() - 1);
-      if (dateFilter === "year")   cutoff.setFullYear(now.getFullYear() - 1);
-      filtered = filtered.filter(r => new Date(r.createdAt) >= cutoff);
+      let cutoff = new Date();
+      
+      if (dateFilter === "week") {
+        cutoff.setDate(now.getDate() - 7);
+      } else if (dateFilter === "month") {
+        cutoff.setMonth(now.getMonth() - 1);
+      } else if (dateFilter === "year") {
+        cutoff.setFullYear(now.getFullYear() - 1);
+      }
+      
+      filtered = filtered.filter(review => new Date(review.createdAt) >= cutoff);
     }
-
+    
     setFilteredReviews(filtered);
-  }, [restaurantFilter, dateFilter, reviews]);
-
-  const uniqueRestaurants = Array.from(
-    reviews.reduce((map, r) => map.set(r.restaurantId, r.restaurantName), new Map()),
-    ([restaurantId, restaurantName]) => ({ restaurantId, restaurantName })
-  );
+  }, [ratingFilter, dateFilter, reviews]);
 
   const handleDelete = async id => {
     if (!window.confirm("Delete this review?")) return;
-    const restId = reviews.find(r => r._id === id).restaurantId;
-    await fetch(`${API_BASE}/restaurants/${restId}/reviews/${id}`, { method: "DELETE" });
+    await fetch(`${API_BASE}/restaurants/${reviews.find(r=>r._id===id).restaurantId}/reviews/${id}`, { method: "DELETE" });
     setReviews(reviews.filter(r => r._id !== id));
   };
 
-  const beginEdit  = r => {
+  const beginEdit = r => {
     setEditingId(r._id);
     setFormState({ rating: r.rating, comment: r.comment || "" });
   };
+  
   const cancelEdit = () => setEditingId(null);
+  
   const submitEdit = async id => {
-    const restId = reviews.find(r => r._id === id).restaurantId;
     await fetch(
-      `${API_BASE}/restaurants/${restId}/reviews/${id}`,
+      `${API_BASE}/restaurants/${reviews.find(r=>r._id===id).restaurantId}/reviews/${id}`,
       {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formState),
       }
     );
-    setReviews(reviews.map(r => 
-      r._id === id ? { ...r, ...formState, updatedAt: new Date().toISOString() } : r
-    ));
+    setReviews(reviews.map(r => r._id===id ? { ...r, ...formState, updatedAt: new Date().toISOString() } : r));
     setEditingId(null);
   };
 
@@ -154,7 +155,7 @@ export default function ProfilePage({ user }) {
           </span>
           {reviews.length > 0 && (
             <div className="flex items-center mt-1">
-              <span className="text-sm text-gray-600 mr-1">Average User Rating:</span>
+              <span className="text-sm text-gray-600 mr-1">Average Rating:</span>
               <div className="flex items-center">
                 {renderStars(averageRating)}
                 <span className="ml-1 text-sm text-gray-700">({averageRating.toFixed(1)})</span>
@@ -166,24 +167,26 @@ export default function ProfilePage({ user }) {
 
       {reviews.length > 0 && (
         <div className="container mx-auto mb-4">
-          <div className="grid grid-cols-2 gap-3">
-            <div>
+          <div className="grid grid-cols-3 gap-3">
+            <div className="col-span-2">
               <div className="flex">
                 <span className="inline-flex items-center px-3 text-gray-500 bg-gray-200 border border-r-0 border-gray-300 rounded-l-md">
-                  🍴
+                  <svg className="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                  </svg>
                 </span>
                 <select
-                  id="restaurant-filter"
-                  value={restaurantFilter}
-                  onChange={e => setRestaurantFilter(e.target.value)}
-                  className="rounded-none rounded-r-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 block flex-1 w-full p-2.5"
+                  id="rating-filter"
+                  value={ratingFilter}
+                  onChange={(e) => setRatingFilter(e.target.value)}
+                  className="rounded-none rounded-r-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full p-2.5"
                 >
-                  <option value="all">All Restaurants</option>
-                  {uniqueRestaurants.map(r => (
-                    <option key={r.restaurantId} value={r.restaurantId}>
-                      {r.restaurantName}
-                    </option>
-                  ))}
+                  <option value="all">All Ratings</option>
+                  <option value="5">5 Stars</option>
+                  <option value="4">4 Stars</option>
+                  <option value="3">3 Stars</option>
+                  <option value="2">2 Stars</option>
+                  <option value="1">1 Star</option>
                 </select>
               </div>
             </div>
@@ -191,14 +194,14 @@ export default function ProfilePage({ user }) {
               <div className="flex">
                 <span className="inline-flex items-center px-3 text-gray-500 bg-gray-200 border border-r-0 border-gray-300 rounded-l-md">
                   <svg className="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm0 18c-4.4 0-8-3.6-8-8s3.6-8 8-8 8 3.6 8 8-3.6 8-8 8zm1-13h-2v6l5.2 3.2.8-1.3-4-2.5V7z"/>
+                    <path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm0 18c-4.4 0-8-3.6-8-8s3.6-8 8-8 8 3.6 8 8-3.6 8-8 8zm1-13h-2v6l5.2 3.2.8-1.3-4-2.5V7z" />
                   </svg>
                 </span>
                 <select
                   id="date-filter"
                   value={dateFilter}
-                  onChange={e => setDateFilter(e.target.value)}
-                  className="rounded-none rounded-r-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 block flex-1 w-full p-2.5"
+                  onChange={(e) => setDateFilter(e.target.value)}
+                  className="rounded-none rounded-r-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full p-2.5"
                 >
                   <option value="all">All Time</option>
                   <option value="week">Last Week</option>
@@ -208,18 +211,20 @@ export default function ProfilePage({ user }) {
               </div>
             </div>
           </div>
-
-          {(restaurantFilter !== "all" || dateFilter !== "all") && (
-            <div className="mt-3 flex justify-end">
-              <button
-                onClick={() => {
-                  setRestaurantFilter("all");
-                  setDateFilter("all");
-                }}
-                className="px-3 py-1 text-sm text-gray-600 border border-gray-300 rounded hover:bg-gray-100"
-              >
-                Clear All Filters
-              </button>
+          
+          {(ratingFilter !== "all" || dateFilter !== "all") && (
+            <div className="mb-4 mt-3">
+              <div className="flex justify-end items-center">
+                <button
+                  onClick={() => {
+                    setRatingFilter("all");
+                    setDateFilter("all");
+                  }}
+                  className="px-3 py-1 text-sm text-gray-600 border border-gray-300 rounded hover:bg-gray-100"
+                >
+                  Clear All Filters
+                </button>
+              </div>
             </div>
           )}
         </div>
@@ -239,13 +244,22 @@ export default function ProfilePage({ user }) {
       )}
 
       {!loading && !error && filteredReviews.length === 0 && reviews.length > 0 && (
-        <div className="py-8 text-center">
+        <div className="col-span-3 py-8 text-center">
           <p className="text-gray-500 text-lg">No reviews match your current filters.</p>
+          <button
+            onClick={() => {
+              setRatingFilter("all");
+              setDateFilter("all");
+            }}
+            className="mt-4 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
+          >
+            Reset Filters
+          </button>
         </div>
       )}
 
       {!loading && !error && reviews.length === 0 && (
-        <div className="py-8 text-center">
+        <div className="col-span-3 py-8 text-center">
           <p className="text-gray-500 text-lg">You haven't written any reviews yet.</p>
         </div>
       )}
@@ -264,31 +278,31 @@ export default function ProfilePage({ user }) {
                     <time className="text-sm text-gray-500">{fmtDate(r.createdAt)}</time>
                   </div>
                 </div>
-                {editingId === r._id ? (
-                  <div className="flex items-center space-x-2">
-                    <button onClick={cancelEdit} className="text-gray-600">Cancel</button>
-                    <button onClick={() => submitEdit(r._id)} className="text-blue-600">Save</button>
-                  </div>
-                ) : (
-                  <div className="flex items-center space-x-2">
-                    {renderStars(r.rating)}
-                    <button onClick={() => beginEdit(r)} className="text-blue-600 ml-2">Edit</button>
-                    <button onClick={() => handleDelete(r._id)} className="text-red-600">Delete</button>
-                  </div>
-                )}
+                {editingId===r._id
+                  ? (
+                    <div className="flex items-center space-x-2">
+                      <button onClick={cancelEdit} className="text-gray-600">Cancel</button>
+                      <button onClick={()=>submitEdit(r._id)} className="text-blue-600">Save</button>
+                    </div>
+                  )
+                  : (
+                    <div className="flex items-center space-x-2">
+                      {renderStars(r.rating)}
+                      <button onClick={()=>beginEdit(r)} className="text-blue-600 ml-2">Edit</button>
+                      <button onClick={()=>handleDelete(r._id)} className="text-red-600">Delete</button>
+                    </div>
+                  )
+                }
               </div>
-
-              {editingId === r._id ? (
+              {editingId===r._id ? (
                 <div className="space-y-2 mb-4">
                   <div>
                     <label className="block text-sm">Rating</label>
                     <input
                       type="number"
-                      min="1"
-                      max="5"
-                      step="1"
+                      min="1" max="5" step="1"
                       value={formState.rating}
-                      onChange={e => setFormState(fs => ({ ...fs, rating: +e.target.value }))}
+                      onChange={e=>setFormState(fs=>({...fs, rating:+e.target.value}))}
                       className="w-16 p-1 border rounded"
                     />
                   </div>
@@ -297,7 +311,7 @@ export default function ProfilePage({ user }) {
                     <textarea
                       rows="3"
                       value={formState.comment}
-                      onChange={e => setFormState(fs => ({ ...fs, comment: e.target.value }))}
+                      onChange={e=>setFormState(fs=>({...fs, comment:e.target.value}))}
                       className="w-full p-1 border rounded"
                     />
                   </div>
@@ -305,7 +319,6 @@ export default function ProfilePage({ user }) {
               ) : (
                 <p className="text-gray-700 mb-4">{r.comment}</p>
               )}
-
               <div className="flex justify-between items-center">
                 <Link
                   to={`/restaurants/${r.restaurantId}`}
