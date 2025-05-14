@@ -1,4 +1,3 @@
-// src/components/RestaurantDetailPage.jsx
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import ReviewsSection from './ReviewsSection';
@@ -10,7 +9,6 @@ export default function RestaurantDetailPage({ user }) {
   const [avgRating, setAvgRating] = useState(null);
 
   useEffect(() => {
-    // Fetch restaurant details
     fetch(`http://localhost:3000/restaurants/${id}`)
       .then(res => {
         if (!res.ok) throw new Error('Failed to load restaurant');
@@ -18,7 +16,6 @@ export default function RestaurantDetailPage({ user }) {
       })
       .then(data => {
         setRestaurant(data);
-        // Then fetch its reviews to compute the average
         return fetch(`http://localhost:3000/restaurants/${id}/reviews`);
       })
       .then(res => {
@@ -49,12 +46,10 @@ export default function RestaurantDetailPage({ user }) {
     orderUrl
   } = restaurant;
 
-  // Show computed average if available, otherwise default to 4.5
   const displayRating = avgRating !== null
     ? avgRating.toFixed(1)
     : 4.5;
 
-  // Determine order URL (fallback if missing)
   const urlToOrder = orderUrl || `https://order.example.com/restaurants/${id}`;
 
   return (
