@@ -107,7 +107,6 @@ export default function ReviewsPage({ user }) {
         </div>
       </div>
 
-      {/* Review Creation Modal */}
       {isModalOpen && user && (
         <CreateReviewModal
           restaurantId={selectedId}

@@ -11,6 +11,7 @@ import ReviewsPage from './components/ReviewsPage';
 import CreateReviewPage from './components/CreateReviewPage';
 import AboutPage from "./components/AboutPage";
 import SignupPage from './components/SignupPage';
+import ProfilePage from "./components/ProfilePage";
 
 function App() {
     const [lastAddedRestaurant, setLastAddedRestaurant] = useState(null);
@@ -64,6 +65,14 @@ function App() {
                 <Route
                     path="/create-review"
                     element={<ProtectedRoute user={user}><CreateReviewPage /></ProtectedRoute>}
+                />
+                <Route
+                    path="/profile"
+                    element={
+                        <ProtectedRoute user={user}>
+                            <ProfilePage user={user} />
+                        </ProtectedRoute>
+                    }
                 />
                 <Route path="/about" element={<AboutPage />} />
                 <Route path="/signup" element={<SignupPage setUser={setUser} />} />
