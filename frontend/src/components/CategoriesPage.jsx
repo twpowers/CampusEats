@@ -261,12 +261,6 @@ const CategoriesPage = ({ newRestaurant }) => {
                     )}
                 </div>
             </div>
-
-            <footer className="bg-gray-800 text-white py-4 mt-8">
-                <div className="container mx-auto px-4">
-                    <p className="mb-0">&copy; 2025 Campus Eats</p>
-                </div>
-            </footer>
         </div>
     );
 };
