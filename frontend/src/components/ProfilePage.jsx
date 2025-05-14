@@ -12,6 +12,9 @@ export default function ProfilePage({ user }) {
   const [dateFilter, setDateFilter] = useState("all");
   const [averageRating, setAverageRating] = useState(0);
 
+  const [editingId, setEditingId] = useState(null);
+  const [formState, setFormState] = useState({ rating: 5, comment: "" });
+
   useEffect(() => {
     if (!user) return;
     setLoading(true);
@@ -93,6 +96,32 @@ export default function ProfilePage({ user }) {
     setFilteredReviews(filtered);
   }, [ratingFilter, dateFilter, reviews]);
 
+  const handleDelete = async id => {
+    if (!window.confirm("Delete this review?")) return;
+    await fetch(`${API_BASE}/restaurants/${reviews.find(r=>r._id===id).restaurantId}/reviews/${id}`, { method: "DELETE" });
+    setReviews(reviews.filter(r => r._id !== id));
+  };
+
+  const beginEdit = r => {
+    setEditingId(r._id);
+    setFormState({ rating: r.rating, comment: r.comment || "" });
+  };
+  
+  const cancelEdit = () => setEditingId(null);
+  
+  const submitEdit = async id => {
+    await fetch(
+      `${API_BASE}/restaurants/${reviews.find(r=>r._id===id).restaurantId}/reviews/${id}`,
+      {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formState),
+      }
+    );
+    setReviews(reviews.map(r => r._id===id ? { ...r, ...formState, updatedAt: new Date().toISOString() } : r));
+    setEditingId(null);
+  };
+
   const renderStars = rating => {
     const stars = [];
     const full  = Math.floor(rating);
@@ -126,7 +155,7 @@ export default function ProfilePage({ user }) {
           </span>
           {reviews.length > 0 && (
             <div className="flex items-center mt-1">
-              <span className="text-sm text-gray-600 mr-1">Average User Rating:</span>
+              <span className="text-sm text-gray-600 mr-1">Average Rating:</span>
               <div className="flex items-center">
                 {renderStars(averageRating)}
                 <span className="ml-1 text-sm text-gray-700">({averageRating.toFixed(1)})</span>
@@ -249,9 +278,47 @@ export default function ProfilePage({ user }) {
                     <time className="text-sm text-gray-500">{fmtDate(r.createdAt)}</time>
                   </div>
                 </div>
-                {renderStars(r.rating)}
+                {editingId===r._id
+                  ? (
+                    <div className="flex items-center space-x-2">
+                      <button onClick={cancelEdit} className="text-gray-600">Cancel</button>
+                      <button onClick={()=>submitEdit(r._id)} className="text-blue-600">Save</button>
+                    </div>
+                  )
+                  : (
+                    <div className="flex items-center space-x-2">
+                      {renderStars(r.rating)}
+                      <button onClick={()=>beginEdit(r)} className="text-blue-600 ml-2">Edit</button>
+                      <button onClick={()=>handleDelete(r._id)} className="text-red-600">Delete</button>
+                    </div>
+                  )
+                }
               </div>
-              <p className="text-gray-700 mb-4">{r.comment}</p>
+              {editingId===r._id ? (
+                <div className="space-y-2 mb-4">
+                  <div>
+                    <label className="block text-sm">Rating</label>
+                    <input
+                      type="number"
+                      min="1" max="5" step="1"
+                      value={formState.rating}
+                      onChange={e=>setFormState(fs=>({...fs, rating:+e.target.value}))}
+                      className="w-16 p-1 border rounded"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm">Comment</label>
+                    <textarea
+                      rows="3"
+                      value={formState.comment}
+                      onChange={e=>setFormState(fs=>({...fs, comment:e.target.value}))}
+                      className="w-full p-1 border rounded"
+                    />
+                  </div>
+                </div>
+              ) : (
+                <p className="text-gray-700 mb-4">{r.comment}</p>
+              )}
               <div className="flex justify-between items-center">
                 <Link
                   to={`/restaurants/${r.restaurantId}`}
