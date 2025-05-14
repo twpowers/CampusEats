@@ -4,7 +4,6 @@ import ReviewsSection from './ReviewsSection';
 export default function ReviewsPage({ user }) {
     const [restaurants, setRestaurants] = useState([]);
     const [selectedId, setSelectedId] = useState('');
-    const [isModalOpen, setIsModalOpen] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
 
@@ -25,14 +24,6 @@ export default function ReviewsPage({ user }) {
                 setIsLoading(false);
             });
     }, []);
-
-    const openModal = () => {
-        setIsModalOpen(true);
-    };
-
-    const closeModal = () => {
-        setIsModalOpen(false);
-    };
 
     return (
         <div className="container mx-auto px-4 my-8 max-w-4xl bg-white">
@@ -94,15 +85,6 @@ export default function ReviewsPage({ user }) {
                     )}
                 </div>
             </div>
-
-      {isModalOpen && user && (
-        <CreateReviewModal
-          restaurantId={selectedId}
-          restaurantName={restaurants.find(r => r._id === selectedId)?.RestaurantName}
-          user={user}
-          onClose={closeModal}
-        />
-      )}
     </div>
   );
 }
