@@ -39,20 +39,8 @@ export default function ReviewsPage({ user }) {
             <div className="bg-white shadow-md rounded-lg p-6">
                 <div className="flex justify-between items-center mb-6">
                     <h1 className="text-3xl font-bold text-gray-800">Restaurant Reviews</h1>
-
-                    {selectedId && (
-                        <button
-                            onClick={openModal}
-                            className="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-md transition-colors duration-200 flex items-center"
-                        >
-                            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-                            </svg>
-                            Write a Review
-                        </button>
-                    )}
                 </div>
-
+                
                 {error && (
                     <div className="bg-red-50 border-l-4 border-red-500 p-4 mb-4">
                         <p className="text-red-700">Error: {error}</p>
@@ -119,7 +107,7 @@ export default function ReviewsPage({ user }) {
   );
 }
 
-function CreateReviewModal({ restaurantId, restaurantName, user, onClose }) {
+function CreateReviewModal({ restaurantName, user, onClose }) {
     const [formData, setFormData] = useState({
         rating: 5,
         review: '',

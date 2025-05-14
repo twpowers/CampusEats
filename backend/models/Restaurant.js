@@ -17,7 +17,8 @@ const restaurantSchema = new mongoose.Schema({
     Hours: { type: String, required: true },
     price_range: { type: String, required: true },
     menu: { type: [menuItemSchema], default: [] },
-    dateAdded: { type: Date, default: Date.now }
+    dateAdded: { type: Date, default: Date.now },
+    orderUrl: { type: String, required: true } 
 }, {
     timestamps: true,
     collection: 'restaurants'
