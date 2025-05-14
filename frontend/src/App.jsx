@@ -10,6 +10,7 @@ import RestaurantDetailPage from "./components/RestaurantDetailPage";
 import ReviewsPage from './components/ReviewsPage';
 import CreateReviewPage from './components/CreateReviewPage';
 import AboutPage from "./components/AboutPage";
+import SignupPage from './components/SignupPage';
 
 function App() {
     const [lastAddedRestaurant, setLastAddedRestaurant] = useState(null);
@@ -65,6 +66,7 @@ function App() {
                     element={<ProtectedRoute user={user}><CreateReviewPage /></ProtectedRoute>}
                 />
                 <Route path="/about" element={<AboutPage />} />
+                <Route path="/signup" element={<SignupPage setUser={setUser} />} />
             </Routes>
         </Router>
     );
