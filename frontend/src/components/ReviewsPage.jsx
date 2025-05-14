@@ -107,17 +107,16 @@ export default function ReviewsPage({ user }) {
                 </div>
             </div>
 
-            {/* Review Creation Modal */}
-            {isModalOpen && user && (
-                <CreateReviewModal
-                    restaurantId={selectedId}
-                    restaurantName={restaurants.find(r => r._id === selectedId)?.RestaurantName}
-                    user={user}
-                    onClose={closeModal}
-                />
-            )}
-        </div>
-    );
+      {isModalOpen && user && (
+        <CreateReviewModal
+          restaurantId={selectedId}
+          restaurantName={restaurants.find(r => r._id === selectedId)?.RestaurantName}
+          user={user}
+          onClose={closeModal}
+        />
+      )}
+    </div>
+  );
 }
 
 function CreateReviewModal({ restaurantId, restaurantName, user, onClose }) {
