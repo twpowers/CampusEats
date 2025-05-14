@@ -24,6 +24,7 @@ router.post("/addRestaurant", async (req, res) => {
       Hours:          req.body.Hours,
       price_range:    req.body.price_range,
       menu:           req.body.menu || [],
+      orderUrl:       req.body.orderUrl 
     });
 
     await restaurant.save();

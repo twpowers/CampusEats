@@ -20,7 +20,8 @@
         "price": "$12.45"
       }
     ],
-    "dateAdded": "2023-04-15T14:30:00.000Z"
+    "dateAdded": "2023-04-15T14:30:00.000Z",
+    "orderUrl": "https://www.elaztecaames.com" 
   },
   {
     "RestaurantName": "Blaze Pizza",
@@ -44,6 +45,7 @@
       }
     ],
     "dateAdded": "2023-05-20T10:15:00.000Z"
+    ,"orderUrl": "https://www.elaztecaames.com" 
   },
   {
     "RestaurantName": "Wild Burger",
@@ -67,6 +69,7 @@
       }
     ],
     "dateAdded": "2023-03-10T09:45:00.000Z"
+    ,"orderUrl": "https://www.elaztecaames.com"
   },
   {
     "RestaurantName": "Panda Express",
@@ -90,6 +93,7 @@
       }
     ],
     "dateAdded": "2023-06-05T16:20:00.000Z"
+    ,"orderUrl": "https://www.elaztecaames.com"
   },
   {
     "RestaurantName": "Hickory Park",
@@ -113,6 +117,7 @@
       }
     ],
     "dateAdded": "2023-01-15T12:30:00.000Z"
+    ,"orderUrl": "https://www.elaztecaames.com"
   },
   {
     "RestaurantName": "Jeff's Pizza Shop",
@@ -136,5 +141,6 @@
       }
     ],
     "dateAdded": "2023-02-10T11:15:00.000Z"
+    ,"orderUrl": "https://www.elaztecaames.com"
   }
 ]

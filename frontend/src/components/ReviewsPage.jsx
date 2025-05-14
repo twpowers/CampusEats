@@ -119,7 +119,7 @@ export default function ReviewsPage({ user }) {
   );
 }
 
-function CreateReviewModal({ restaurantId, restaurantName, user, onClose }) {
+function CreateReviewModal({ restaurantName, user, onClose }) {
     const [formData, setFormData] = useState({
         rating: 5,
         review: '',
