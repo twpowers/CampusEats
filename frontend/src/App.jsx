@@ -32,43 +32,53 @@ function App() {
     };
 
     return (
-        <Router>
-            <NavBar user={user} setUser={setUser} />
-            <Routes>
-                <Route path="/login" element={<LoginPage user={user} setUser={setUser} />} />
-                <Route path="/" element={
-                    <ProtectedRoute >
-                        <HomePage />
-                    </ProtectedRoute>
-                } />
-                <Route path="/categories" element={
-                    <ProtectedRoute >
-                        <CategoriesPage newRestaurant={lastAddedRestaurant} />
-                    </ProtectedRoute>
-                } />
-                <Route path="/add-restaurant" element={
-                    <ProtectedRoute>
-                        <AddRestaurantPage onRestaurantAdded={handleRestaurantAdded} />
-                    </ProtectedRoute>
-                } />
-                <Route path="/restaurants/:id" element={
-                    <ProtectedRoute user={user}>
-                    <   RestaurantDetailPage user={user} />
-                    </ProtectedRoute>
-                }
-                />
-                <Route
-                    path="/reviews"
-                    element={<ReviewsPage user={user} />}
-                />
-                <Route
-                    path="/create-review"
-                    element={<ProtectedRoute user={user}><CreateReviewPage /></ProtectedRoute>}
-                />
-                <Route path="/about" element={<AboutPage />} />
-                <Route path="/signup" element={<SignupPage setUser={setUser} />} />
-            </Routes>
-        </Router>
+        <div className="bg-white min-h-screen flex flex-col">
+            <Router>
+                <NavBar user={user} setUser={setUser} />
+                <main className="flex-grow">
+                    <Routes>
+                        <Route path="/login" element={<LoginPage user={user} setUser={setUser} />} />
+                        <Route path="/" element={
+                            <ProtectedRoute >
+                                <HomePage />
+                            </ProtectedRoute>
+                        } />
+                        <Route path="/categories" element={
+                            <ProtectedRoute >
+                                <CategoriesPage newRestaurant={lastAddedRestaurant} />
+                            </ProtectedRoute>
+                        } />
+                        <Route path="/add-restaurant" element={
+                            <ProtectedRoute>
+                                <AddRestaurantPage onRestaurantAdded={handleRestaurantAdded} />
+                            </ProtectedRoute>
+                        } />
+                        <Route path="/restaurants/:id" element={
+                            <ProtectedRoute user={user}>
+                                <RestaurantDetailPage user={user} />
+                            </ProtectedRoute>
+                        }
+                        />
+                        <Route
+                            path="/reviews"
+                            element={<ReviewsPage user={user} />}
+                        />
+                        <Route
+                            path="/create-review"
+                            element={<ProtectedRoute user={user}><CreateReviewPage /></ProtectedRoute>}
+                        />
+                        <Route path="/about" element={<AboutPage />} />
+                        <Route path="/signup" element={<SignupPage setUser={setUser} />} />
+
+                    </Routes>
+                </main>
+                <footer className="bg-gray-800 text-white py-4 mt-8">
+                    <div className="container mx-auto px-4">
+                        <p className="mb-0">&copy; 2025 Campus Eats</p>
+                    </div>
+                </footer>
+            </Router>
+        </div>
     );
 }
 
